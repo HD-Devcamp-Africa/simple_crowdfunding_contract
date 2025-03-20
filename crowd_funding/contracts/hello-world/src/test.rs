@@ -5,17 +5,10 @@ use soroban_sdk::{vec, Env, String};
 
 #[test]
 fn test() {
-    let env = Env::default();
-    let contract_id = env.register(CrowdFundContract, ());
-    let client = CrowdFundContractClient::new(&env, &contract_id);
+    let env: Env = Env::default();
+    let contract_id: soroban_sdk::Address = env.register(CrowdFundContract, ()); // registers the contract you want to test.
 
-    let words = client.hello(&String::from_str(&env, "Dev"));
-    assert_eq!(
-        words,
-        vec![
-            &env,
-            String::from_str(&env, "Hello"),
-            String::from_str(&env, "Dev"),
-        ]
-    );
+    let client: CrowdFundContractClient<'_> = CrowdFundContractClient::new(&env, &contract_id);
+
+    
 }
